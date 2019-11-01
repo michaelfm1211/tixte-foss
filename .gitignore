@@ -1,0 +1,7 @@
+.DS_STORE
+tixte-games
+venv
+.pytest_cache
+.vscode
+.idea
+__pycache__
