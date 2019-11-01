@@ -1,0 +1,14 @@
+language: python
+python:
+    - "3.7"
+services:
+    - postgresql
+install:
+    - pip install -r requirements.txt
+before_script:
+    - export DATABASE_URL="postgres://postgres@localhost/tixte"
+    - export APP_SETTINGS="config.ProductionConfig"
+    - export PORT=80
+    - psql -c  'create database tixte;' -U postgres
+    - python setup.py
+script: pytest

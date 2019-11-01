@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Game List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Game List</h2>
+    <p>See all the games currently on the Tixte hub here!</p>
+    <label for="myInput">Search</label>
+    <input class="form-control" id="myInput" type="text"
+           placeholder="Search by Game Title, Release Date, or Author">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Game Title</th>
+            <th>Date Published (Month,Year)</th>
+            <th>Author</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        {% for row in rows %}
+            <tr>
+                <td>{{ row["game"] }}</td>
+                <td>{{ row["releasedate"] }}</td>
+                <td> {{ row["author"] }}</td>
+                <td> {{ row["category"] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            let value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>

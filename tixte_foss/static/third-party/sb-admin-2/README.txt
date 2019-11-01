@@ -1,0 +1,1 @@
+This version of sb-admin-2 has been taken from https://github.com/michaelfm1211/startbootstrap-sb-admin-2

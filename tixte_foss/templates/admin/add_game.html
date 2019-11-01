@@ -1,0 +1,18 @@
+{% extends "admin/form_template.html" %}
+{% block content %}
+    <label>
+        Game Title: <input type="text" name="game" required/>
+    </label><br>
+    <label>
+        HTML File: <input type=file name="file" required>
+    </label><br>
+    <label>
+        Release Date: <input type="text" name="releasedate" required/>
+    </label><br>
+    <label>
+        Author: <input type="text" name="author" required/>
+    </label><br>
+    <label>
+        Category: <input type="text" name="category" required/>
+    </label>
+{% endblock %}

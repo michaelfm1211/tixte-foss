@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }} - Tixte Admin</title>
+
+    <input type="hidden" id="url_for_admin" value="{{ url_for('admin') }}">
+</head>
+<body>
+<div>
+    <noscript>
+        <h3 style="color: red">JavaScript Must Be Enabled</h3>
+    </noscript>
+    <form id="form" method="POST" enctype="multipart/form-data">
+        <h1>{{ title }}</h1>
+        {% block content %}{% endblock %}<br><br>
+
+        <input type="hidden" name="admin_key" id="admin_key">
+
+        <input type="submit" value="{{ title }}"/>
+    </form>
+    <script src="../../static/js/admin/force_login.js"></script>
+    <script>
+        document.getElementById("form").action = location.href;
+    </script>
+</div>
+</body>
+</html>

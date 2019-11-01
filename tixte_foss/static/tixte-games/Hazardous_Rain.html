@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Hazardous Rain</title>
+	<style type="text/css">
+		#canvas {
+			position: fixed;
+			width: 800;
+			height: 600;
+			left: 41%;
+			top: 0px
+		}
+
+		#inst {
+			position: relative;
+			width: 40%;
+		}
+	</style>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+	<div id="inst">
+		Instructions:<br>Welcome to Hazardous Rain! Here's how to play: First press the s key on your keyboard to start
+		the game. Once you have started the game red balls will start to drop from the top of the screen. If the ball
+		reaches the bottom of the screen you will loose the game. To destroy the ball before it gets to the bottom of
+		the screen press the key on your keyboard which is shown inside ball. Every time you destroy a ball you will
+		earn a point.
+	</div>
+	<canvas id="canvas" width="800" height="600"></canvas><br><br>
+	<script type="text/javascript">
+		var c = document.getElementById("canvas");
+		var ctx = c.getContext('2d');
+
+		var fallSpeed = 3;
+		var balls = [];
+		var ballTime = 1;
+		var dropSpeed = 2000;
+		var gameover = false;
+
+		var f = false;
+		var g = false;
+		var h = false;
+		var m = false;
+		var d = false;
+
+		var keygap = false;
+
+		var score = 0;
+		var pause = true;
+
+		function circle(xx, yy, rr, cc) {
+			ctx.beginPath();
+			ctx.arc(xx, yy, rr, 0, Math.PI * 2);
+			ctx.fillStyle = cc;
+			ctx.fill();
+			ctx.closePath();
+		}
+
+		function rand(min, max) {
+			return Math.floor(Math.random() * (max - min + 1) + min);
+		}
+
+		function rain() {
+
+			this.x = rand(100, 500);
+			this.y = 0;
+			this.type = rand(1, 100)
+			this.ridkey = 0;
+			this.reward = 0
+			this.is = true
+			this.most = false
+			this.color = "#FFFFFF"
+
+			if (this.type <= 5) {
+				this.reward = 0
+				this.color = "#FFA500"
+				this.ridkey = 68
+			}
+
+			if (this.type > 5 && this.type <= 95) {
+				this.reward = 1
+				this.color = "#FF0000"
+				this.ridkey = rand(70, 72);
+			}
+
+			if (this.type > 95) {
+				this.reward = 2
+				this.color = "#00FF00"
+				this.ridkey = 80;
+			}
+
+			this.draw = function () {
+				if (this.is == true) {
+
+					this.y += fallSpeed;
+
+					circle(this.x, this.y, 50, this.color);
+
+					ctx.fillStyle = "#FFFFFF";
+					ctx.font = "30px Arial";
+
+					if (this.ridkey == 70) {
+						ctx.fillText("F", this.x - 10, this.y + 10);
+					} else if (this.ridkey == 71) {
+						ctx.fillText("G", this.x - 10, this.y + 10);
+					} else if (this.ridkey == 72) {
+						ctx.fillText("H", this.x - 10, this.y + 10);
+					} else if (this.ridkey == 68) {
+						ctx.fillText("D", this.x - 10, this.y + 10);
+					} else if (this.ridkey == 80) {
+						ctx.fillText("P", this.x - 10, this.y + 10);
+					}
+				}
+			}
+
+			function loose() {
+				setInterval(function () {
+					if (gameover == true) {
+						ctx.fillStyle = "#FF0000"
+						ctx.font = "30px Arial"
+						ctx.fillText("Game Over", 200, 300);
+					}
+				}, 1);
+			}
+
+			this.testLoose = function (e) {
+				if (this.y > 600) {
+					balls = null;
+					gameover = true;
+					loose()
+				}
+			}
+
+			this.testGone = function () {
+				if (this.ridkey == 70 && f == true) {
+					if (this.is == true) {
+						score += this.reward;
+					}
+					this.is = false;
+				} else if (this.ridkey == 71 && g == true) {
+					if (this.is == true) {
+						score += this.reward;
+					}
+					this.is = false;
+				} else if (this.ridkey == 72 && h == true) {
+
+					if (this.is == true) {
+						score += this.reward;
+					}
+					this.is = false;
+				} else if (this.ridkey == 80 && p == true) {
+
+					if (this.is == true) {
+						score += this.reward;
+					}
+					this.is = false;
+				} else if (this.ridkey == 68 && d == true) {
+
+					if (this.is == true) {
+						score += this.reward;
+					}
+					this.is = false;
+				}
+			}
+		}
+
+		function cls() {
+			ctx.fillStyle = '#000000';
+			ctx.fillRect(0, 0, 600, 600);
+		}
+
+		balls.push(new rain());
+
+		cls();
+
+		ctx.fillStyle = "#00FF00";
+		ctx.font = "30px Arial";
+		ctx.fillText("0", 550, 50);
+
+		ctx.fillStyle = "#FF00FF";
+		ctx.font = "30px Arial";
+		ctx.fillText("Press S to Start Game", 130, 300);
+
+		function draw() {
+			cls();
+
+			ctx.fillStyle = "#00FF00";
+			ctx.font = "30px Arial";
+			ctx.fillText(score.toString(), 550, 50);
+
+			for (var i = 0; i < balls.length + 1; i++) {
+				balls[i].draw();
+				balls[i].testGone();
+				balls[i].testLoose();
+			}
+		}
+
+		var drawInter = setInterval(function () {
+			if (pause == false) {
+				draw();
+			}
+		}, 1000 / 60);
+
+		setInterval(function () {
+			if (pause == false) {
+				fallSpeed += 2;
+				dropSpeed -= 300;
+			}
+		}, 3000);
+
+		var newBallInter = setInterval(function () {
+			if (pause == false) {
+				balls.push(new rain());
+			}
+		}, dropSpeed);
+
+		document.addEventListener("keydown", function (e) {
+			if (e.keyCode == 83) {
+				if (pause == true) {
+					pause = false
+				} else if (pause == false) {
+					pause = true
+				}
+			}
+			if (pause == false) {
+				if (e.keyCode == 82) {
+					restart();
+				}
+
+				if (e.keyCode == 70 && keygap == false) {
+					f = true;
+					keygap = true;
+					un();
+				} else if (e.keyCode == 71 && keygap == false) {
+					g = true;
+					keygap = true;
+					un();
+				} else if (e.keyCode == 72 && keygap == false) {
+					h = true;
+					keygap = true;
+					un();
+				} else if (e.keyCode == 77 && keygap == false) {
+					m = true;
+					keygap = true;
+					un();
+				} else if (e.keyCode == 68 && keygap == false) {
+					d = true;
+					keygap = true;
+					un();
+				}
+			}
+		});
+
+		document.addEventListener("keyup", function (e) {
+			if (pause == false) {
+				if (e.keyCode == 70) {
+					f = false;
+					g = false;
+					h = false;
+					d = false;
+					m = false;
+				} else if (e.keyCode == 71) {
+					f = false;
+					g = false;
+					h = false;
+					d = false;
+					m = false;
+				} else if (e.keyCode == 72) {
+					f = false;
+					g = false;
+					h = false;
+					d = false;
+					m = false;
+				} else if (e.keyCode == 77) {
+					f = false;
+					g = false;
+					h = false;
+					d = false;
+					m = false;
+				} else if (e.keyCode == 68) {
+					f = false;
+					g = false;
+					h = false;
+					d = false;
+					m = false;
+				}
+			}
+		});
+
+		function un() {
+			setTimeout(function () {
+				keygap = false
+			}, 500);
+		}
+
+		function restart() {
+			if (gameover == true) {
+				fallSpeed = 3;
+				balls = [];
+				ballTime = 1;
+				dropSpeed = 2000;
+				gameover = false;
+				keygap = false;
+				score = 0;
+			}
+		}
+
+	</script>
+
+</body>
+
+</html>

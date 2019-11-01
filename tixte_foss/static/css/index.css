@@ -1,0 +1,171 @@
+body {
+    box-sizing: border-box;
+    font-family: Lato, serif;
+}
+
+.column {
+    width: 5%;
+    padding: 5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Catamaran, serif;
+    font-weight: 800 !important
+}
+
+.btn-xl {
+    text-transform: uppercase;
+    padding: 1.5rem 3rem;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .1rem
+}
+
+.bg-black {
+    background-color: black !important
+}
+
+.rounded-pill {
+    border-radius: 5rem
+}
+
+.navbar-custom {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgba(0, 0, 0, .7)
+}
+
+.navbar-custom .navbar-brand {
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .1rem;
+    font-weight: 700
+}
+
+.navbar-custom .navbar-nav .nav-item .nav-link {
+    text-transform: uppercase;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1rem
+}
+
+header.masthead {
+    position: relative;
+    overflow: hidden;
+    /*padding-top: calc(7rem + 72px);*/
+    /*padding-bottom: 7rem;*/
+    background: -webkit-gradient(linear, left bottom, left top, from(#000099), to(#3535b0));
+    background: linear-gradient(0deg, #000099 0, #3535b0 100%);
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
+    /*background-attachment: scroll;*/
+    /*background-size: cover*/
+}
+
+header.masthead .masthead-content {
+    z-index: 1;
+    position: relative
+}
+
+/*header.masthead .masthead-content .masthead-heading {*/
+/*    font-size: 4rem*/
+/*}*/
+
+/*header.masthead .masthead-content .masthead-subheading {*/
+/*    font-size: 2rem*/
+/*}*/
+
+header.masthead .bg-circle {
+    /*z-index: 0;*/
+    position: absolute;
+    border-radius: 100%;
+    background: -webkit-gradient(linear, left bottom, left top, from(#0000cc), to(#0000e5));
+    background: linear-gradient(0deg, #0000cc 0, #0000e5 100%)
+}
+
+header.masthead .bg-circle-1 {
+    height: 90rem;
+    width: 90rem;
+    bottom: -55rem;
+    left: -55rem
+}
+
+header.masthead .bg-circle-2 {
+    height: 50rem;
+    width: 50rem;
+    top: -25rem;
+    right: -25rem
+}
+
+header.masthead .bg-circle-3 {
+    height: 20rem;
+    width: 20rem;
+    bottom: -10rem;
+    right: 5%
+}
+
+header.masthead .bg-circle-4 {
+    height: 30rem;
+    width: 30rem;
+    top: -5rem;
+    right: 35%
+}
+
+@media (min-width: 992px) {
+    header.masthead {
+        padding-top: calc(10rem + 55px);
+        padding-bottom: 10rem
+    }
+
+    header.masthead .masthead-content .masthead-heading {
+        font-size: 6rem
+    }
+
+    header.masthead .masthead-content .masthead-subheading {
+        font-size: 4rem
+    }
+
+}
+
+.bg-primary {
+    background-color: #0000FF !important
+}
+
+.btn-primary {
+    background-color: #0000FF;
+    border-color: #0000CD
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+    background-color: #0000CD !important;
+    border-color: #0000FF !important
+}
+
+.btn-primary:focus {
+    -webkit-box-shadow: 0 0 0 .2rem rgba(0, 0, 255, .5);
+    box-shadow: 0 0 0 .2rem rgba(0, 0, 255, .5)
+}
+
+.btn-secondary {
+    background-color: #3232ff;
+    border-color: #3232ff
+}
+
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:hover {
+    background-color: #B0E0E6 !important;
+    border-color: #2626ff !important
+}
+
+.btn-secondary:focus {
+    -webkit-box-shadow: 0 0 0 .2rem rgba(50, 50, 255, .5);
+    box-shadow: 0 0 0 .2rem rgba(50, 50, 255, .5)
+}

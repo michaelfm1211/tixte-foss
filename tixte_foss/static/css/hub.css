@@ -1,0 +1,12 @@
+.input-group-append {
+    width: 30%;
+}
+
+#hub-message {
+    white-space: nowrap;
+    max-width: 40%;
+}
+
+.game {
+    margin-bottom: 3%;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Tixte Admin</title>
+</head>
+<body>
+<h1>Welcome to Your Tixte Admin Dashboard</h1>
+<noscript>
+    <h3 style="color: red">JavaScript Must Be Enabled</h3>
+</noscript>
+<a href="{{ url_for('add_game') }}">Add A Game</a><br>
+<a href="{{ url_for('delete_game') }}">Delete A Game</a><br>
+<a href="{{ url_for('change_message') }}">Change Hub Message</a><br>
+<a href="{{ url_for('change_password') }}">Change Password</a><br>
+<br>
+<a href="{{ url_for('admin') }}">Logout</a>
+<script>
+    sessionStorage.setItem("admin_key", "{{ admin_key }}")
+
+</script>
+</body>
+</html>
