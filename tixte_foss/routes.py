@@ -99,9 +99,9 @@ def add_game():
         file = request.files['file']
 
         filename = secure_filename(game)
-        filepath = path.join(
-            "tixte_foss/static/tixte-games", filename) + ".html"
-        file.save(filepath)
+        filepath = path.join("static/tixte-games", filename) + ".html"
+
+        file.save(path.join("tixte_foss", filepath))
 
         con = sql.connect(environ['DATABASE_URL'])
         cur = con.cursor(cursor_factory=DictCursor)
