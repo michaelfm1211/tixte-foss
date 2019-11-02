@@ -1,4 +1,4 @@
-# Tixte FOSS [![Build Status](https://dev.azure.com/michaelmcnulty37/Tixte%20FOSS/_apis/build/status/michaelfm1211.tixte-foss?branchName=master)](https://dev.azure.com/michaelmcnulty37/Tixte%20FOSS/_build/latest?definitionId=5&branchName=master) <img src="https://api.travis-ci.com/michaelfm1211/tixte-foss.svg?branch=master" />
+# Tixte FOSS [![Build Status](https://dev.azure.com/michaelmcnulty37/Tixte%20FOSS/_apis/build/status/michaelfm1211.tixte-foss?branchName=master)](https://dev.azure.com/michaelmcnulty37/Tixte%20FOSS/_build/latest?definitionId=5&branchName=master)
 
 Welcome to Tixte FOSS, the MIT licensed, free and open source open source, and customizable gaming platform.
 
