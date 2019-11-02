@@ -1,0 +1,49 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  DATABASE_URL: 'postgres://postgres:postgres@localhost/tixte'
+  APP_SETTINGS: 'config.ProductionConfig'
+  PORT: 80
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7'
+  displayName: 'Use Python 3.7'
+
+- script: |
+    sudo apt-get update
+    sudo apt-get -y install postgresql libpq-dev
+    echo "host    all             all             127.0.0.1/32            md5" > sudo tee -a /etc/postgresql/12.0/main/pg_hba.conf
+    sudo service postgresql restart
+    sleep 3
+    sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
+    sudo service postgresql restart
+    sleep 3
+    sudo -u postgres psql -c "CREATE DATABASE tixte;"
+  displayName: 'Setting Up'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: 'setup.py'
+  displayName: 'Run Setup Utility'
+
+- script: |
+    pip install pytest pytest-azurepipelines
+    pytest
+  displayName: 'pytest'
