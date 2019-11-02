@@ -23,7 +23,7 @@ finally:
 print("Connecting to PostgreSQL Database")
 conn = sql.connect(environ['DATABASE_URL'])
 cur = conn.cursor()
-print("Created Database")
+print("Connected to Database")
 
 print("Creating Configuration Table")
 cur.execute(
