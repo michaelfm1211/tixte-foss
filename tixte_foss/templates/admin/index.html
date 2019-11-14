@@ -9,10 +9,15 @@
 <noscript>
     <h3 style="color: red">JavaScript Must Be Enabled</h3>
 </noscript>
+<h3>Games</h3>
 <a href="{{ url_for('add_game') }}">Add A Game</a><br>
 <a href="{{ url_for('delete_game') }}">Delete A Game</a><br>
+<h3>General Settings</h3>
 <a href="{{ url_for('change_message') }}">Change Hub Message</a><br>
-<a href="{{ url_for('change_password') }}">Change Password</a><br>
+<a href="{{ url_for('change_password') }}">Change Administrator Password</a><br>
+<h3>Sidebar</h3>
+<h4>Links</h4>
+<a href="{{ url_for('add_sidebar_link') }}">Add Sidebar Link</a><br>
 <br>
 <a href="{{ url_for('admin') }}">Logout</a>
 <script>

@@ -37,7 +37,6 @@ cur.execute(
 conn.commit()
 
 print("Creating Administrator Password")
-# password = input("Enter Administrator Password: ")
 password = "password"
 hashed_password = sha3_256(password.encode()).hexdigest()
 cur.execute(
@@ -48,6 +47,11 @@ print("Default Administrator Password is: password")
 print("Creating Default Hub Message")
 cur.execute(
     "INSERT INTO config (setting_name, setting_value) VALUES('hub_message', 'Tixte FOSS')")
+conn.commit()
+
+print("Creating Hub Sidebar Links")
+cur.execute("INSERT INTO config (setting_name, setting_value) VALUES ('sidebar_links',"
+            "'https://github.com/michaelfm1211/tixte-foss,Tixte FOSS GitHub,,,https://tixte.com,Tixte')")
 conn.commit()
 
 print("Closing Database")

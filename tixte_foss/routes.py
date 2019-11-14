@@ -1,9 +1,11 @@
-from flask import render_template, request, redirect, url_for
-from werkzeug.utils import secure_filename
-import psycopg2 as sql
-from psycopg2.extras import DictCursor
 from hashlib import sha3_256
 from os import environ, path
+
+import psycopg2 as sql
+from flask import render_template, request, redirect, url_for
+from psycopg2.extras import DictCursor
+from werkzeug.utils import secure_filename
+
 from tixte_foss import app
 
 admin_hash = ""
@@ -52,7 +54,15 @@ def hub():
     cur.execute("SELECT * FROM games")
     games = cur.fetchall()
 
-    return render_template('hub.html', msg=msg, games=games)
+    cur.execute("SELECT * FROM config WHERE setting_name='sidebar_links';")
+    sidebar_links_dict = cur.fetchone()
+    sidebar_links = sidebar_links_dict[2]
+    links_comb = sidebar_links.split(",,,")
+    links = []
+    for link in links_comb:
+        links.append(link.split(","))
+
+    return render_template('hub.html', msg=msg, games=games, links=links)
 
 
 @app.route('/welcome')
@@ -156,6 +166,90 @@ def change_message():
         con.close()
 
         msg = "Message Changed"
+        return render_template("result.html", msg=msg)
+
+
+@app.route('/admin/add_sidebar_link', methods=['GET', 'POST'])
+def add_sidebar_link():
+    if request.method == "GET":
+        return render_template('admin/add_sidebar_link.html', title='Add Sidebar Link')
+    elif request.method == "POST":
+        if request.form['admin_key'] != admin_hash:
+            redirect(url_for('admin'))
+
+        url = request.form['url']
+        text = request.form['text']
+
+        con = sql.connect(environ['DATABASE_URL'])
+        cur = con.cursor(cursor_factory=DictCursor)
+
+        cur.execute("SELECT * FROM config WHERE setting_name='sidebar_links';")
+        sidebar_links_dict = cur.fetchone()
+        sidebar_links = sidebar_links_dict[2]
+        links_comb = sidebar_links.split(",,,")
+
+        links_comb.append(url + "," + text)
+        print(links_comb)
+        sidebar_links_str = ""
+        i = 0
+        while i < len(links_comb):
+            print(i != len(links_comb) - 1)
+            sidebar_links_str = sidebar_links_str + links_comb[i]
+            if i != len(links_comb) - 1:
+                sidebar_links_str = sidebar_links_str + ",,,"
+            i = i + 1
+        print(sidebar_links_str)
+        cur.execute(
+            "UPDATE config SET setting_value=%s WHERE setting_name='sidebar_links'", (sidebar_links_str,))
+        con.commit()
+        con.close()
+
+        msg = "Link Added"
+        return render_template("result.html", msg=msg)
+
+
+@app.route('/admin/remove_sidebar_link', methods=['GET', 'POST'])
+def remove_sidebar_link():
+    if request.method == "GET":
+        return render_template('admin/remove_sidebar_link.html', title='Remove Sidebar Link')
+    elif request.method == "POST":
+        if request.form['admin_key'] != admin_hash:
+            redirect(url_for('admin'))
+
+        text = request.form['text']
+
+        con = sql.connect(environ['DATABASE_URL'])
+        cur = con.cursor(cursor_factory=DictCursor)
+
+        cur.execute("SELECT * FROM config WHERE setting_name='sidebar_links';")
+        sidebar_links_dict = cur.fetchone()
+        sidebar_links = sidebar_links_dict[2]
+        links_comb = sidebar_links.split(",,,")
+
+        # links_comb.append(url + "," + text)
+        i = 0
+        while i < len(links_comb):
+            link_str = links_comb[i]
+            link = link_str.split(',')
+
+            if link[1] == text:
+                links_comb.pop(i)
+
+            i = i + 1
+
+        sidebar_links_str = ""
+        i = 0
+        while i < len(links_comb):
+            sidebar_links_str = sidebar_links_str + links_comb[i]
+            if i != len(links_comb) - 1:
+                sidebar_links_str = sidebar_links_str + ",,,"
+            i = i + 1
+        cur.execute(
+            "UPDATE config SET setting_value=%s WHERE setting_name='sidebar_links'", (sidebar_links_str,))
+        con.commit()
+        con.close()
+
+        msg = "Link Removed"
         return render_template("result.html", msg=msg)
 
 

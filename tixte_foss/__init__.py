@@ -1,9 +1,10 @@
-from config import Config
-from flask import Flask
 from os import environ
 
-if environ['APP_SETTINGS'] == None:
-    print("$APP_SETTINGS is not defined. Ensure it is set to config.ProductionConfig, config.StagingConfig, config.DevelopmentConfig, or config.TestingConfig")
+from flask import Flask
+
+if environ['APP_SETTINGS'] is None:
+    print("$APP_SETTINGS is not defined. Ensure it is set to config.ProductionConfig, config.StagingConfig, "
+          "config.DevelopmentConfig, or config.TestingConfig")
 
 app = Flask(__name__)
 app.config.from_object(environ['APP_SETTINGS'])

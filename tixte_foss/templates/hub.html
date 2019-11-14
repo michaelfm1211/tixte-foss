@@ -96,10 +96,12 @@
         <!-- Nav Item - Pages Collapse Menu -->
 
         <div class="nav-item">
-            <a class="nav-link" href="https://example.com">
+        {% for link in links %}
+            <a class="nav-link" href="{{ link[0] }}" target="_blank">
                 <i class="fas fa-fw fa-link"></i>
-                <span>My Link</span>
+                    <span>{{ link[1] }}</span>
             </a>
+        {% endfor %}
         </div>
 
         <!-- Divider -->
@@ -215,6 +217,7 @@
 <script src='../static/third-party/sweetalert/sweetalert.min.js'></script>
 
 <script src="../static/js/hub.js"></script>
+
 </body>
 
 </html>
