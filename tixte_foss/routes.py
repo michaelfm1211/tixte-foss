@@ -10,7 +10,6 @@ from tixte_foss import app
 
 admin_hash = ""
 
-
 def get_admin_hash():
     global admin_hash
 
@@ -52,7 +51,11 @@ def hub():
         print("FATAL ERROR: Multiple or No Hub Message\nResorting to Default Hub Message")
 
     cur.execute("SELECT * FROM games")
-    games = cur.fetchall()
+    old_new_games = cur.fetchall()
+
+    new_old_games = []
+    for game in old_new_games:
+        new_old_games.insert(0, game)
 
     cur.execute("SELECT * FROM config WHERE setting_name='sidebar_links';")
     sidebar_links_dict = cur.fetchone()
@@ -62,7 +65,7 @@ def hub():
     for link in links_comb:
         links.append(link.split(","))
 
-    return render_template('hub.html', msg=msg, games=games, links=links)
+    return render_template('hub.html', msg=msg, games=new_old_games, links=links)
 
 
 @app.route('/welcome')
@@ -78,7 +81,7 @@ def all_games():
     cur.execute("SELECT * FROM games")
     rows = cur.fetchall()
 
-    return render_template('all_games.html', rows=rows)
+    return render_template('all_games.html', rows=rows, query="")
 
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -189,16 +192,13 @@ def add_sidebar_link():
         links_comb = sidebar_links.split(",,,")
 
         links_comb.append(url + "," + text)
-        print(links_comb)
         sidebar_links_str = ""
         i = 0
         while i < len(links_comb):
-            print(i != len(links_comb) - 1)
             sidebar_links_str = sidebar_links_str + links_comb[i]
             if i != len(links_comb) - 1:
                 sidebar_links_str = sidebar_links_str + ",,,"
             i = i + 1
-        print(sidebar_links_str)
         cur.execute(
             "UPDATE config SET setting_value=%s WHERE setting_name='sidebar_links'", (sidebar_links_str,))
         con.commit()
@@ -226,7 +226,6 @@ def remove_sidebar_link():
         sidebar_links = sidebar_links_dict[2]
         links_comb = sidebar_links.split(",,,")
 
-        # links_comb.append(url + "," + text)
         i = 0
         while i < len(links_comb):
             link_str = links_comb[i]

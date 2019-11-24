@@ -36,3 +36,13 @@ function update_dark() {
         localStorage.setItem("tixte_dark", "false")
     }
 }
+
+// Search Box
+$("#search-box-btn").on("click", function () {
+    let value = $("#search-box").val().toLowerCase();
+    let game = $("#games-container .game");
+    game.hide()
+    game.filter(function () {
+        return $(this).find(".card .card-body .row .game-info .game-title").text().toLowerCase().indexOf(value) > -1
+    }).show()
+});

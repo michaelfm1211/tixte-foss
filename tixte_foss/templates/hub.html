@@ -43,46 +43,9 @@
 
         <!-- Nav Item - Dashboard -->
         <div class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/">
                 <i class="fas fa-fw fa-home"></i>
                 <span>Back To Home</span></a>
-        </div>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Great Game Options:
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <div class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-award"></i>
-                <span>Featured:</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="https://example.com">Not Ready Yet</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <div class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Trending:</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="https://example.com">Not Ready Yet</a>
-                </div>
-            </div>
         </div>
 
         <!-- Divider -->
@@ -119,7 +82,6 @@
         </div>
 
     </div>
-    <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -138,8 +100,8 @@
                 <!-- Topbar Search -->
                 <div class="input-group">
                     <div class="input-group-append">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for...">
-                        <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                        <input id="search-box" type="text" class="form-control bg-light border-0 small" placeholder="Search for...">
+                        <button id="search-box-btn" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
 
@@ -148,19 +110,12 @@
                     {{ msg }}
                 </div>
             </nav>
-            <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Games:</h1>
-                </div>
-
-
                 <!-- Content Row -->
-                <div class="row">
+                <div id="games-container" class="row">
 
                     {% for game in games %}
                         <div class="col-xl-6 col-md-6 mb-6 game"
@@ -168,11 +123,11 @@
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
+                                        <div class="col mr-2 game-info">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Category: {{ game['category'] }}
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ game['game'] }}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 game-title">{{ game['game'] }}</div>
                                             <div class="h6 mb-0 font-weight-bold text-gray-400">
                                                 by {{ game['author'] }}
                                             </div>
@@ -197,7 +152,6 @@
         </div>
     </div>
 </div>
-<!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
