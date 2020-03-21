@@ -3,7 +3,7 @@ from psycopg2.extras import DictCursor
 from hashlib import sha3_256
 from os import environ
 
-print("Welcome to Tixte FOSS(beta 1.0.0) Setup Utility")
+print("Welcome to Tixte FOSS v1.0.0 Setup Utility")
 
 try:
     con = sql.connect(environ['DATABASE_URL'])
