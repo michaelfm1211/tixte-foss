@@ -13,7 +13,7 @@ bash-3.2$ virtualenv venv
 Before contributing we recommend installing python-dotenv and autoenv globally via PIP. If you choose not to do this you must remember to activate the virtual environment and set \$APP_SETTINGS. Next, you will need to install all the dependencies for Tixte FOSS with
 
 ```bash
-bash-3.2$ pip install -r /app/requirements.txt
+bash-3.2$ pip install -r requirements.txt
 ```
 
 Finally, please follow the following requirements(they may seem silly but they are necessary):
