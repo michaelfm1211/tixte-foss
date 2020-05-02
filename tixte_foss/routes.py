@@ -193,12 +193,10 @@ def add_sidebar_link():
 
         links_comb.append(url + "," + text)
         sidebar_links_str = ""
-        i = 0
-        while i < len(links_comb):
-            sidebar_links_str = sidebar_links_str + links_comb[i]
+        for i in range(len(links_comb)):
+            sidebar_links_str += links_comb[i]
             if i != len(links_comb) - 1:
-                sidebar_links_str = sidebar_links_str + ",,,"
-            i = i + 1
+                sidebar_links_str += ",,,"
         cur.execute(
             "UPDATE config SET setting_value=%s WHERE setting_name='sidebar_links'", (sidebar_links_str,))
         con.commit()
@@ -234,15 +232,13 @@ def remove_sidebar_link():
             if link[1] == text:
                 links_comb.pop(i)
 
-            i = i + 1
+            i += 1
 
         sidebar_links_str = ""
-        i = 0
-        while i < len(links_comb):
-            sidebar_links_str = sidebar_links_str + links_comb[i]
+        for i in range(len(links_comb)):
+            sidebar_links_str += links_comb[i]
             if i != len(links_comb) - 1:
-                sidebar_links_str = sidebar_links_str + ",,,"
-            i = i + 1
+                sidebar_links_str += ",,,"
         cur.execute(
             "UPDATE config SET setting_value=%s WHERE setting_name='sidebar_links'", (sidebar_links_str,))
         con.commit()
