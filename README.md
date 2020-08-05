@@ -10,23 +10,19 @@ Before contributing to Tixte FOSS set up a python virtual environment called ven
 bash-3.2$ virtualenv venv
 ```
 
-Before contributing we recommend installing python-dotenv and autoenv globally via PIP. If you choose not to do this you must remember to activate the virtual environment and set \$APP_SETTINGS. Next, you will need to install all the dependencies for Tixte FOSS with
+Before contributing we recommend installing python-dotenv and autoenv globally via PIP. If you choose not to do this you must remember to activate the virtual environment and set `$APP_SETTINGS`. Next, you will need to install all the dependencies for Tixte FOSS with
 
 ```bash
 bash-3.2$ pip install -r requirements.txt
 ```
 
-Finally, please follow the following requirements(they may seem silly but they are necessary):
-
-1. Use the Git VCS.
-2. Use Python 3
-3. Format all code with autopep8(unless it breaks the code, in that case append "# nopep8" to the end of the line)
+Finally, before contributing please format your code with autopep8 unless it breaks your code
 
 ## Building
 
 ## With gunicorn
 
-To run Tixte FOSS with gunicorn please follow the instructions in the Contributing section first. You will then need to set the environment variables $DATABASE_URL which is a URL to a PostgreSQL server(using the format postgres://user:password@example.com:port/database), and \$PORT which is the port for the server to run on. You will then need to run the setup utility with
+To run Tixte FOSS with gunicorn please follow the instructions in the Contributing section first. You will then need to set the environment variables `$DATABASE_URL` which is a URL to a PostgreSQL server(using the format `postgres://user:password@example.com:port/database`), and `$PORT` which is the port for the server to run on. You will then need to run the setup utility with
 
 ```bash
 (venv) bash-3.2$ python setup.py
@@ -48,7 +44,7 @@ bash-3.2$ export POSTGRES_PORT=7000 # We will use port 7000 on the host machine,
 bash-3.2$ docker run -p $POSTGRES_PORT:5432 -d postgres
 ```
 
-The output of that last command should show you the ID of the Docker Postgres container. In our case the ID of the PostgreSQL container is a130f4bb222fa55e3bd1c231e215034dc5be3f53484b26b95897c2e1254245b3. Run the following command to run a bash shell in the PostgreSQL container and attach it to your terminal
+The output of that last command should show you the ID of the Docker Postgres container. In our case the ID of the PostgreSQL container is `a130f4bb222fa55e3bd1c231e215034dc5be3f53484b26b95897c2e1254245b3`. Run the following command to run a bash shell in the PostgreSQL container and attach it to your terminal
 
 ```bash
 bash-3.2$ docker exec -it a130f4bb222fa55e3bd1c231e215034dc5be3f53484b26b95897c2e1254245b3 bash
@@ -76,7 +72,7 @@ Once PostgreSQL is set up, you need to build Tixte for docker deployment first b
 bash-3.2$ docker build -t tixte-foss .
 ```
 
-This will generate a Docker image ready for development. Now you have to specify the URL to your postgres server or container. In the folowing command replace &lt;POSTGRESQL URL&gt; with the URL of your PostgreSQL server following the scheme postgres://user:password@example.com:port/database If you followed this guide entirely so far than this should work for you: postgres://postgres@localhost:7000/tixte
+This will generate a Docker image ready for development. Now you have to specify the URL to your postgres server or container. In the folowing command replace `<POSTGRESQL URL>` with the URL of your PostgreSQL server following the scheme `postgres://user:password@example.com:port/database` If you followed this guide entirely so far than this should work for you: `postgres://postgres@localhost:7000/tixte`
 
 ```bash
 bash-3.2$ export DATABASE_URL="<POSTGRESQL URL>"
